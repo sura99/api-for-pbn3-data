@@ -1,0 +1,47 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  //output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model School {
+  id                Int    @id @default(autoincrement())
+  smis_code         Int
+  obec_code         Int
+  school_name       String
+  district_code     Int // รหัสอำเภอ
+  district          String //อำเภอ
+  school_group_code Int // รหัสศูนย์พัฒนาวิชาการ
+  school_group      String //ศูนย์พัฒนาวิชาการ
+  lat               String
+  long              String
+  status            String // สถานะการเปิด-ปิดโรงเรียน
+
+  @@map("schools")
+}
+
+model Onet {
+  id            Int    @id @default(autoincrement())
+  smis_code     Int
+  obec_code     Int
+  school_name   String
+  year_exam     String // ปีการศึกษาที่สอบ
+  level_edu     String // ชั้น ป.6 ม.3
+  score_th      String
+  score_sci     String
+  score_math    String
+  score_eng     String
+  score_average String
+
+  @@map("onets")
+}
